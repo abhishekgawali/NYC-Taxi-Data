@@ -1,0 +1,7 @@
+Phase 2: 
+
+Propose a document-oriented model for your dataset and compare it with your relational model.You should also provide code to load your data into this model. 
+
+Provide a program that issues at least five interesting SQL queries over the previous relational model and propose indexes to speed up query execution (report your timings). 
+
+Discover and explain functional dependencies and discuss normalization with respect to the relational model you provided in Phase I.
