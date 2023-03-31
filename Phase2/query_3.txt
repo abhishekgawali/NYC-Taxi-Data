@@ -1,0 +1,14 @@
+select * from (select sum(trip_distance) as dst , 'yellow' as cab from yellowcab y  
+
+union
+select sum(trip_distance) as dst,'green' as cab from greencab g 
+
+union
+select sum(trip_miles) as dst,'forhire' as cab from lvhiretaxi l 
+
+union
+select sum(trip_miles) as dst,'forhire_uber' as cab from lvhiretaxi l  where hvfhs_license_num ='HV0003'
+union
+select sum(trip_miles) as dst,'forhire_lyft' as cab from lvhiretaxi l where hvfhs_license_num ='HV0005'
+) y
+order by dst desc,cab desc;

@@ -1,0 +1,13 @@
+select
+case when Cab='HV0003' then 'Uber'
+else 'Lyft'
+end,
+Borough,
+Average_time_diff_in_minutes_bet_Req_and_Pickup
+from
+(select l.hvfhs_license_num as Cab ,l2.borough as Borough,avg(extract(minute from pickup_datetime::time -request_datetime::time)) as Average_time_diff_in_minutes_bet_Req_and_Pickup from lvhiretaxi l
+join locationlookup l2
+on
+l.pulocationid =l2.locationid
+group by l.hvfhs_license_num ,l2.borough
+)x;

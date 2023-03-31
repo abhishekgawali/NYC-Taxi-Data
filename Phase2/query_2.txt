@@ -1,0 +1,15 @@
+select * from (select * from (select 'Uber' as CabType,pulocationid ,l2.borough,l2."zone" ,l2.service_zone  ,count(1) as cnt from lvhiretaxi l join locationlookup l2 on l2.locationid =l.pulocationid 
+where hvfhs_license_num='HV0003'
+group by 2,3,4,5 order by cnt desc limit 10) x
+union 
+
+select * from (select 'Lyft' as CabType,pulocationid ,l2.borough,l2."zone" ,l2.service_zone  ,count(1) as cnt from lvhiretaxi l join locationlookup l2 on l2.locationid =l.pulocationid 
+where hvfhs_license_num='HV0005'
+group by 2,3,4,5 order by cnt desc limit 10) x
+
+union
+select * from (
+select 'Juno' as CabType,pulocationid ,l2.borough,l2."zone" ,l2.service_zone  ,count(1) as cnt from lvhiretaxi l join locationlookup l2 on l2.locationid =l.pulocationid 
+where hvfhs_license_num='HV0002'
+group by 2,3,4,5) x
+) y order by cnt desc,cabtype desc
