@@ -1,0 +1,59 @@
+select  * from 
+(select count(1) as cnt,sum(y.total_amount+y.tip_amount) as amt, 'yellow' as cab ,'credit card' as typeofpayment from yellowcab y  join paymentlookup p on p.id=y.payment_type
+and y.payment_type=1
+union
+
+select count(1) as cnt,sum(y.total_amount+y.tip_amount) as amt, 'yellow' as cab ,'cash' as typeofpayment from yellowcab y  join paymentlookup p on p.id=y.payment_type
+and y.payment_type=2
+union
+
+select count(1) as cnt,sum(y.total_amount+y.tip_amount) as amt, 'yellow' as cab ,'No charge' as typeofpayment from yellowcab y  join paymentlookup p on p.id=y.payment_type
+and y.payment_type=3
+union 
+
+select count(1) as cnt,sum(y.total_amount+y.tip_amount) as amt, 'yellow' as cab ,'dispute' as typeofpayment from yellowcab y  join paymentlookup p on p.id=y.payment_type
+and y.payment_type=4
+union
+
+select count(1) as cnt,sum(y.total_amount+y.tip_amount) as amt, 'yellow' as cab ,'unknown' as typeofpayment from yellowcab y  join paymentlookup p on p.id=y.payment_type
+and y.payment_type=5
+union
+
+select count(1) as cnt,sum(y.total_amount+y.tip_amount) as amt, 'yellow' as cab ,'void' as typeofpayment from yellowcab y  join paymentlookup p on p.id=y.payment_type
+and y.payment_type=6
+union
+
+select count(1) as cnt,sum(y.total_amount+y.tip_amount) as amt, 'green' as cab ,'credit card' as typeofpayment from greencab y  join paymentlookup p on p.id=y.payment_type
+and y.payment_type=1
+union
+
+select count(1) as cnt,sum(y.total_amount+y.tip_amount) as amt, 'green' as cab ,'cash' as typeofpayment from greencab y  join paymentlookup p on p.id=y.payment_type
+and y.payment_type=2
+union
+
+select count(1) as cnt,sum(y.total_amount+y.tip_amount) as amt, 'green' as cab ,'No charge' as typeofpayment from greencab y  join paymentlookup p on p.id=y.payment_type
+and y.payment_type=3
+union 
+
+
+select count(1) as cnt,sum(y.total_amount+y.tip_amount) as amt, 'green' as cab ,'dispute' as typeofpayment from greencab y  join paymentlookup p on p.id=y.payment_type
+and y.payment_type=4
+union
+
+select count(1) as cnt,sum(y.total_amount+y.tip_amount) as amt, 'green' as cab ,'Unknown' as typeofpayment from greencab y  join paymentlookup p on p.id=y.payment_type
+and y.payment_type=5
+union
+
+select count(1) as cnt,sum(y.total_amount+y.tip_amount) as amt, 'green' as cab ,'void' as typeofpayment from greencab y  join paymentlookup p on p.id=y.payment_type
+and y.payment_type=6
+union 
+
+select count(1) ,sum(base_passenger_fare+tolls+bcf+sales_tax+congestion_surcharge+tips+airport_fee)as amt,'forhire' as cab ,'credit' as typeofpayment from lvhiretaxi
+union
+select count(1) ,sum(base_passenger_fare+tolls+bcf+sales_tax+congestion_surcharge+tips+airport_fee)as amt,'forhire_uber' as cab ,'credit' as typeofpayment from lvhiretaxi
+where hvfhs_license_num ='HV0003'
+union 
+
+select count(1) ,sum(base_passenger_fare+tolls+bcf+sales_tax+congestion_surcharge+tips+airport_fee)as amt,'forhire_lyft' as cab ,'credit' as typeofpayment from lvhiretaxi
+where hvfhs_license_num ='HV0005'
+)x order by cab,typeofpayment

@@ -1,0 +1,45 @@
+select * from
+(select 'Weekends_yellow Cab' cab, count(z.val_pickup::text ) from 
+(select to_Char(x.pickup,'Day')as val_pickup,to_char(x.dropoff,'Day') from 
+(select tpep_pickup_datetime::date as pickup,tpep_dropoff_datetime::date as dropoff from yellowcab y)x)z
+
+where z.val_pickup like 'Sat%' or  z.val_pickup ='Sun%'
+
+union
+select 'WeekDays_yellow Cab' cab,count(z.val_pickup::text )from 
+(select to_Char(x.pickup,'Day')as val_pickup,to_char(x.dropoff,'Day') from 
+(select tpep_pickup_datetime::date as pickup,tpep_dropoff_datetime::date as dropoff from yellowcab y)x)z
+
+where z.val_pickup not like 'Sat%' and not  z.val_pickup ='Sun%'
+
+union
+select 'Weekends_green Cab' cab, count(z.val_pickup::text ) from 
+(select to_Char(x.pickup,'Day')as val_pickup,to_char(x.dropoff,'Day') from 
+(select lpep_pickup_datetime::date as pickup,lpep_dropoff_datetime::date as dropoff from greencab y)x)z
+
+where z.val_pickup like 'Sat%' or  z.val_pickup ='Sun%'
+
+union
+select 'WeekDays_green_Cab' cab,count(z.val_pickup::text )from 
+(select to_Char(x.pickup,'Day')as val_pickup,to_char(x.dropoff,'Day') from 
+(select lpep_pickup_datetime::date as pickup,lpep_dropoff_datetime::date as dropoff from greencab  y)x)z
+
+where z.val_pickup not like 'Sat%' and not  z.val_pickup ='Sun%'
+
+union
+select 'Weekends_for hire Cab' cab, count(z.val_pickup::text ) from 
+(select to_Char(x.pickup,'Day')as val_pickup,to_char(x.dropoff,'Day') from 
+(select pickup_datetime::date as pickup,dropoff_datetime::date as dropoff from lvhiretaxi  y)x)z
+
+where z.val_pickup like 'Sat%' or  z.val_pickup ='Sun%'
+
+union
+select 'WeekDays_hire Cab' cab,count(z.val_pickup::text )from 
+(select to_Char(x.pickup,'Day')as val_pickup,to_char(x.dropoff,'Day') from 
+(select pickup_datetime::date as pickup,dropoff_datetime::date as dropoff from lvhiretaxi y)x)z
+
+where z.val_pickup not like 'Sat%' and not  z.val_pickup ='Sun%'
+) outer_q
+
+order by 1 
+
