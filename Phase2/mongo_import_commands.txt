@@ -1,0 +1,47 @@
+1. Yellow taxi
+(base) MacBook-Air-90:~ deepika$ mongoimport --db NYC_Taxi --collection 'yellow_cab' --file '/Users/deepika/Downloads/yellow_taxi_JAN.csv' --type csv --headerline
+.
+.
+.
+2023-03-29T12:05:34.483-0400	[########################] NYC_Taxi.yellow_cab	248MB/248MB (100.0%)
+2023-03-29T12:05:34.483-0400	2463931 document(s) imported successfully. 0 document(s) failed to import.
+
+2. Green taxi
+(base) MacBook-Air-90:~ deepika$ mongoimport --db NYC_Taxi --collection 'green_cab' --file '/Users/deepika/Downloads/green_taxi_JAN.csv' --type csv --headerline 
+2023-03-29T12:14:24.985-0400	connected to: mongodb://localhost/
+.
+.
+.
+2023-03-29T12:14:27.491-0400	62495 document(s) imported successfully. 0 document(s) failed to import.
+
+
+3. LV_Hire taxi
+(base) MacBook-Air-90:~ deepika$ mongoimport --db NYC_Taxi --collection 'LVHire_cab' --file '/Users/deepika/Downloads/LVHire_JAN.csv' --type csv --headerline
+2023-03-29T12:18:29.177-0400	connected to: mongodb://localhost/
+.
+.
+.
+.88GB/1.88GB (100.0%)
+2023-03-29T12:27:05.237-0400	12637977 document(s) imported successfully. 0 document(s) failed to import.
+
+
+
+4. Other dimension table import:
+(base) MacBook-Air-90:~ deepika$ mongoimport --db NYC_Taxi --collection 'vendor_taxi_lookup' --file '/Users/deepika/Downloads/vendortaxilookup.csv' --type csv --headerline
+2023-03-29T12:36:34.789-0400	connected to: mongodb://localhost/
+2023-03-29T12:36:34.918-0400	2 document(s) imported successfully. 0 document(s) failed to import.
+(base) MacBook-Air-90:~ deepika$ mongoimport --db NYC_Taxi --collection 'trip_type' --file '/Users/deepika/Downloads/triptype.csv' --type csv --headerline
+2023-03-29T12:37:15.839-0400	connected to: mongodb://localhost/
+2023-03-29T12:37:15.966-0400	2 document(s) imported successfully. 0 document(s) failed to import.
+(base) MacBook-Air-90:~ deepika$ mongoimport --db NYC_Taxi --collection 'ratecode_lookup' --file '/Users/deepika/Downloads/ratecodelookup.csv' --type csv --headerline
+2023-03-29T12:37:44.200-0400	connected to: mongodb://localhost/
+2023-03-29T12:37:44.298-0400	7 document(s) imported successfully. 0 document(s) failed to import.
+(base) MacBook-Air-90:~ deepika$ mongoimport --db NYC_Taxi --collection 'payment_lookup' --file '/Users/deepika/Downloads/paymentlookup.csv' --type csv --headerline
+2023-03-29T12:38:07.958-0400	connected to: mongodb://localhost/
+2023-03-29T12:38:08.074-0400	6 document(s) imported successfully. 0 document(s) failed to import.
+(base) MacBook-Air-90:~ deepika$ mongoimport --db NYC_Taxi --collection 'location_lookup' --file '/Users/deepika/Downloads/locationlookup.csv' --type csv --headerline
+2023-03-29T12:38:33.194-0400	connected to: mongodb://localhost/
+2023-03-29T12:38:33.265-0400	265 document(s) imported successfully. 0 document(s) failed to import.
+(base) MacBook-Air-90:~ deepika$ mongoimport --db NYC_Taxi --collection 'lv_hire_vendor' --file '/Users/deepika/Downloads/lvhiretaxivendor.csv' --type csv --headerline
+2023-03-29T12:39:11.946-0400	connected to: mongodb://localhost/
+2023-03-29T12:39:12.044-0400	4 document(s) imported successfully. 0 document(s) failed to import.

@@ -1,0 +1,40 @@
+Queries for cleaning
+
+db.getCollection("green_cab").find({})
+
+#datatype cleaning
+db.green_cab.updateMany({ehail_fee: ""}, { $unset : { ehail_fee: 0 }})
+//for testing  - db.green_cab.find({ehail_fee: {$exists:false}})
+
+db.green_cab.updateMany({congestion_surcharge: 0.0}, { $unset : { congestion_surcharge: 0 }})
+
+db.LVHire_cab.updateMany({access_a_ride_flag: ""}, { $unset : { access_a_ride_flag: 0 }})
+
+db.LVHire_cab.updateMany({congestion_surcharge: 0.0}, { $unset : { congestion_surcharge: 0 }})
+db.yellow_cab.updateMany({congestion_surcharge: 0.0}, { $unset : { congestion_surcharge: 0 }})
+db.yellow_cab.updateMany({airport_fee: 0.0}, { $unset : { airport_fee: 0 }})
+
+#removing quotes
+ db.location_lookup.updateMany({"borough" : { $type: 2 }}, [{$set: {borough: {$trim : {input: "$borough", chars:'"'}}}}])
+
+db.location_lookup.updateMany({"zone" : { $type: 2 }}, [{$set: {zone: {$trim : {input: "$zone", chars:'"'}}}}])
+
+db.location_lookup.updateMany({"service_zone" : { $type: 2 }}, [{$set: {service_zone: {$trim : {input: "$service_zone", chars:'"'}}}}])
+
+
+   
+#changing datatype
+
+db.green_cab.updateMany( {},[{$set: { payment_type: { $toInt: "$payment_type" }}}] )
+
+db.green_cab.updateMany( {RatecodeID : { $type: 1 }},[{$set: { RatecodeID: { $toInt: "$RatecodeID" }}}] )
+db.yellow_cab.updateMany( {RatecodeID: { $type: 1 }},[{$set: { RatecodeID: { $toInt: "$RatecodeID" }}}] )
+
+
+db.green_cab.updateMany( {trip_type : { $type: 1 }},[{$set: { trip_type: { $toInt: "$trip_type" }}}] )
+
+db.LVHire_cab.updateMany( {pickup_datetime : { $type: 2 }},[{$set: {pickup_datetime1: { $toDate: "$pickup_datetime" }}}] )
+
+
+
+
