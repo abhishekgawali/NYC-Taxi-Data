@@ -94,42 +94,27 @@ select * from greencab g ;
 
 -------------------------------------------------Integration---------------------------------------------------------------------
 
-
-
-create materialized view manhattan_view as
-
-select
-greencab.vendorid,greencab.lpep_pickup_datetime,greencab.lpep_dropoff_datetime,
-greencab.ratecodeid,greencab.pulocationid,greencab.dolocationid,
-greencab.passenger_count,greencab.trip_distance,greencab.fare_amount,
-greencab.extra,greencab.mta_tax,greencab.tip_amount,greencab.tolls_amount,
-greencab.ehail_fee,greencab.improvement_surcharge,greencab.total_amount,greencab.payment_type,
-greencab.congestion_surcharge
-
-from greencab as greencab
-join locationlookup l 
-on l.locationid= greencab.pulocationid
-and l.borough ='"Manhattan"'
-
-
-
-
-
-
-
-
-
-
-
 create materialized view queens_view as
-
-select
-greencab.vendorid,greencab.lpep_pickup_datetime,greencab.lpep_dropoff_datetime,
-greencab.ratecodeid,greencab.pulocationid,greencab.dolocationid,
-greencab.passenger_count,greencab.trip_distance,greencab.fare_amount,
-greencab.extra,greencab.mta_tax,greencab.tip_amount,greencab.tolls_amount,
-greencab.ehail_fee,greencab.improvement_surcharge,greencab.total_amount,greencab.payment_type,
-greencab.congestion_surcharge
+select 
+greencab.vendorid,greencab.lpep_pickup_datetime,
+greencab.lpep_dropoff_datetime,greencab.ratecodeid,
+greencab.pulocationid,greencab.dolocationid,
+greencab.passenger_count,greencab.trip_distance,
+greencab.fare_amount,greencab.extra,
+greencab.mta_tax,greencab.tip_amount,
+greencab.tolls_amount,
+greencab.ehail_fee,
+greencab.improvement_surcharge,
+greencab.total_amount,
+greencab.payment_type,
+greencab.trip_type,
+greencab.congestion_surcharge,
+greencab.lpep_pickup_date_val,
+greencab.lpep_pickup_time_minutes,
+greencab.lpep_pickup_time_hour,
+greencab.lpep_dropoff_datetime_val,
+greencab.lpep_dropoff_minute,
+greencab.lpep_dropoff_hour
 
 from greencab as greencab
 join locationlookup l 
@@ -139,15 +124,32 @@ and l.borough ='"Queens"'
 
 
 
+
+
+
+
 create materialized view bronx_view as
 
-select
-greencab.vendorid,greencab.lpep_pickup_datetime,greencab.lpep_dropoff_datetime,
-greencab.ratecodeid,greencab.pulocationid,greencab.dolocationid,
-greencab.passenger_count,greencab.trip_distance,greencab.fare_amount,
-greencab.extra,greencab.mta_tax,greencab.tip_amount,greencab.tolls_amount,
-greencab.ehail_fee,greencab.improvement_surcharge,greencab.total_amount,greencab.payment_type,
-greencab.congestion_surcharge
+select 
+greencab.vendorid,greencab.lpep_pickup_datetime,
+greencab.lpep_dropoff_datetime,greencab.ratecodeid,
+greencab.pulocationid,greencab.dolocationid,
+greencab.passenger_count,greencab.trip_distance,
+greencab.fare_amount,greencab.extra,
+greencab.mta_tax,greencab.tip_amount,
+greencab.tolls_amount,
+greencab.ehail_fee,
+greencab.improvement_surcharge,
+greencab.total_amount,
+greencab.payment_type,
+greencab.trip_type,
+greencab.congestion_surcharge,
+greencab.lpep_pickup_date_val,
+greencab.lpep_pickup_time_minutes,
+greencab.lpep_pickup_time_hour,
+greencab.lpep_dropoff_datetime_val,
+greencab.lpep_dropoff_minute,
+greencab.lpep_dropoff_hour
 
 from greencab as greencab
 join locationlookup l 
@@ -156,15 +158,31 @@ and l.borough ='"Bronx"'
 
 
 
-create materialized view brooklyn_view as
 
-select
-greencab.vendorid,greencab.lpep_pickup_datetime,greencab.lpep_dropoff_datetime,
-greencab.ratecodeid,greencab.pulocationid,greencab.dolocationid,
-greencab.passenger_count,greencab.trip_distance,greencab.fare_amount,
-greencab.extra,greencab.mta_tax,greencab.tip_amount,greencab.tolls_amount,
-greencab.ehail_fee,greencab.improvement_surcharge,greencab.total_amount,greencab.payment_type,
-greencab.congestion_surcharge
+
+
+
+create materialized view brooklyn_view as
+select 
+greencab.vendorid,greencab.lpep_pickup_datetime,
+greencab.lpep_dropoff_datetime,greencab.ratecodeid,
+greencab.pulocationid,greencab.dolocationid,
+greencab.passenger_count,greencab.trip_distance,
+greencab.fare_amount,greencab.extra,
+greencab.mta_tax,greencab.tip_amount,
+greencab.tolls_amount,
+greencab.ehail_fee,
+greencab.improvement_surcharge,
+greencab.total_amount,
+greencab.payment_type,
+greencab.trip_type,
+greencab.congestion_surcharge,
+greencab.lpep_pickup_date_val,
+greencab.lpep_pickup_time_minutes,
+greencab.lpep_pickup_time_hour,
+greencab.lpep_dropoff_datetime_val,
+greencab.lpep_dropoff_minute,
+greencab.lpep_dropoff_hour
 
 from greencab as greencab
 join locationlookup l 
@@ -175,14 +193,26 @@ and l.borough ='"Brooklyn"'
 
 
 create materialized view ewr_view as
-
-select
-greencab.vendorid,greencab.lpep_pickup_datetime,greencab.lpep_dropoff_datetime,
-greencab.ratecodeid,greencab.pulocationid,greencab.dolocationid,
-greencab.passenger_count,greencab.trip_distance,greencab.fare_amount,
-greencab.extra,greencab.mta_tax,greencab.tip_amount,greencab.tolls_amount,
-greencab.ehail_fee,greencab.improvement_surcharge,greencab.total_amount,greencab.payment_type,
-greencab.congestion_surcharge
+select 
+greencab.vendorid,greencab.lpep_pickup_datetime,
+greencab.lpep_dropoff_datetime,greencab.ratecodeid,
+greencab.pulocationid,greencab.dolocationid,
+greencab.passenger_count,greencab.trip_distance,
+greencab.fare_amount,greencab.extra,
+greencab.mta_tax,greencab.tip_amount,
+greencab.tolls_amount,
+greencab.ehail_fee,
+greencab.improvement_surcharge,
+greencab.total_amount,
+greencab.payment_type,
+greencab.trip_type,
+greencab.congestion_surcharge,
+greencab.lpep_pickup_date_val,
+greencab.lpep_pickup_time_minutes,
+greencab.lpep_pickup_time_hour,
+greencab.lpep_dropoff_datetime_val,
+greencab.lpep_dropoff_minute,
+greencab.lpep_dropoff_hour
 
 from greencab as greencab
 join locationlookup l 
@@ -193,15 +223,28 @@ and l.borough ='"EWR"'
 
 
 
-create materialized view staten_view as
 
-select
-greencab.vendorid,greencab.lpep_pickup_datetime,greencab.lpep_dropoff_datetime,
-greencab.ratecodeid,greencab.pulocationid,greencab.dolocationid,
-greencab.passenger_count,greencab.trip_distance,greencab.fare_amount,
-greencab.extra,greencab.mta_tax,greencab.tip_amount,greencab.tolls_amount,
-greencab.ehail_fee,greencab.improvement_surcharge,greencab.total_amount,greencab.payment_type,
-greencab.congestion_surcharge
+create materialized view staten_view as
+select 
+greencab.vendorid,greencab.lpep_pickup_datetime,
+greencab.lpep_dropoff_datetime,greencab.ratecodeid,
+greencab.pulocationid,greencab.dolocationid,
+greencab.passenger_count,greencab.trip_distance,
+greencab.fare_amount,greencab.extra,
+greencab.mta_tax,greencab.tip_amount,
+greencab.tolls_amount,
+greencab.ehail_fee,
+greencab.improvement_surcharge,
+greencab.total_amount,
+greencab.payment_type,
+greencab.trip_type,
+greencab.congestion_surcharge,
+greencab.lpep_pickup_date_val,
+greencab.lpep_pickup_time_minutes,
+greencab.lpep_pickup_time_hour,
+greencab.lpep_dropoff_datetime_val,
+greencab.lpep_dropoff_minute,
+greencab.lpep_dropoff_hour
 
 from greencab as greencab
 join locationlookup l 
@@ -213,15 +256,28 @@ and l.borough ='"Staten Island"'
 
 
 
-create materialized view unknown_view as
 
-select
-greencab.vendorid,greencab.lpep_pickup_datetime,greencab.lpep_dropoff_datetime,
-greencab.ratecodeid,greencab.pulocationid,greencab.dolocationid,
-greencab.passenger_count,greencab.trip_distance,greencab.fare_amount,
-greencab.extra,greencab.mta_tax,greencab.tip_amount,greencab.tolls_amount,
-greencab.ehail_fee,greencab.improvement_surcharge,greencab.total_amount,greencab.payment_type,
-greencab.congestion_surcharge
+create materialized view unknown_view as
+select 
+greencab.vendorid,greencab.lpep_pickup_datetime,
+greencab.lpep_dropoff_datetime,greencab.ratecodeid,
+greencab.pulocationid,greencab.dolocationid,
+greencab.passenger_count,greencab.trip_distance,
+greencab.fare_amount,greencab.extra,
+greencab.mta_tax,greencab.tip_amount,
+greencab.tolls_amount,
+greencab.ehail_fee,
+greencab.improvement_surcharge,
+greencab.total_amount,
+greencab.payment_type,
+greencab.trip_type,
+greencab.congestion_surcharge,
+greencab.lpep_pickup_date_val,
+greencab.lpep_pickup_time_minutes,
+greencab.lpep_pickup_time_hour,
+greencab.lpep_dropoff_datetime_val,
+greencab.lpep_dropoff_minute,
+greencab.lpep_dropoff_hour
 
 from greencab as greencab
 join locationlookup l 
@@ -233,4 +289,29 @@ and l.borough ='"Unknown"'
 
 
 
+create materialized view  manhattan_view as
+select 
+greencab.vendorid,greencab.lpep_pickup_datetime,
+greencab.lpep_dropoff_datetime,greencab.ratecodeid,
+greencab.pulocationid,greencab.dolocationid,
+greencab.passenger_count,greencab.trip_distance,
+greencab.fare_amount,greencab.extra,
+greencab.mta_tax,greencab.tip_amount,
+greencab.tolls_amount,
+greencab.ehail_fee,
+greencab.improvement_surcharge,
+greencab.total_amount,
+greencab.payment_type,
+greencab.trip_type,
+greencab.congestion_surcharge,
+greencab.lpep_pickup_date_val,
+greencab.lpep_pickup_time_minutes,
+greencab.lpep_pickup_time_hour,
+greencab.lpep_dropoff_datetime_val,
+greencab.lpep_dropoff_minute,
+greencab.lpep_dropoff_hour
 
+from greencab as greencab
+join locationlookup l 
+on l.locationid= greencab.pulocationid
+and l.borough ='"Manhattan"'
