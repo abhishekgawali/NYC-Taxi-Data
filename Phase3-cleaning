@@ -1,0 +1,40 @@
+select * from greencab g ;
+
+
+select * from yellowcab y 
+
+
+select * from lvhiretaxi l ;
+
+
+
+
+select * from greencab g 
+
+
+-----------------------Extracting of date and time ------------------------------
+
+select extract(seconds from tpep_pickup_datetime::timestamp)  as ti from yellowcab y ;
+
+
+alter table greencab 
+add column lpep_pickup_time_minutes int
+
+
+
+
+alter table greencab 
+add column lpep_pickup_time_hour int
+
+
+
+
+
+update greencab 
+set lpep_pickup_time_minutes=extract(minute from lpep_pickup_datetime::timestamp)
+
+
+
+
+update greencab 
+set lpep_pickup_time_hour=extract(hour from lpep_pickup_datetime::timestamp)
