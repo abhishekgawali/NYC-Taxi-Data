@@ -315,3 +315,310 @@ from greencab as greencab
 join locationlookup l 
 on l.locationid= greencab.pulocationid
 and l.borough ='"Manhattan"'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---------------------yellowCab------------------------------------------------
+
+
+alter table yellowcab 
+add column lpep_pickup_time_minutes int
+
+
+
+
+alter table yellowcab 
+add column lpep_pickup_time_hour int
+
+
+
+select * from yellowcab y limit 10
+
+update yellowcab 
+set lpep_pickup_time_minutes=extract(minute from tpep_pickup_datetime::timestamp)
+
+
+
+
+update yellowcab 
+set lpep_pickup_time_hour=extract(hour from tpep_pickup_datetime::timestamp)
+
+
+
+
+--------Extractinf Date time for pickp Date----------------------------------------
+
+
+
+alter table yellowcab 
+
+add column lpep_dropoff_datetime_val date;
+
+
+
+alter table yellowcab 
+add column lpep_pickup_datetime_val date;
+
+add column tpep_pickup_datetime_val date;
+
+
+
+
+
+alter table yellowcab 
+
+add column lpep_dropoff_minute int;
+
+
+
+
+alter table yellowcab 
+
+add column lpep_dropoff_hour int;
+
+
+
+
+select * from yellowcab g  ;
+
+
+update yellowcab 
+set lpep_dropoff_datetime_val=tpep_dropoff_datetime::date
+
+
+update yellowcab 
+set lpep_pickup_datetime_val=tpep_pickup_datetime::date
+
+
+
+update yellowcab 
+set lpep_dropoff_minute=extract(minute from tpep_dropoff_datetime::timestamp)
+
+
+
+
+
+
+update yellowcab 
+set lpep_dropoff_hour=extract(hour from tpep_dropoff_datetime::timestamp)
+
+--------------------------integration of yellowcab-------------------------------------------------------------------------------
+
+
+create materialized view queens_view_yellow as
+select 
+yellowcab.vendorid,yellowcab.tpep_pickup_datetime,
+yellowcab.tpep_dropoff_datetime,yellowcab.ratecodeid,
+yellowcab.pulocationid,yellowcab.dolocationid,
+yellowcab.passenger_count,yellowcab.trip_distance,
+yellowcab.fare_amount,yellowcab.extra,
+yellowcab.mta_tax,yellowcab.tip_amount,
+yellowcab.tolls_amount,
+yellowcab.improvement_surcharge,
+yellowcab.total_amount,
+yellowcab.payment_type,
+yellowcab.congestion_surcharge,
+yellowcab.lpep_pickup_datetime_val,
+yellowcab.lpep_pickup_time_minutes,
+yellowcab.lpep_pickup_time_hour,
+yellowcab.lpep_dropoff_datetime_val,
+yellowcab.lpep_dropoff_minute,
+yellowcab.lpep_dropoff_hour
+
+from yellowcab as yellowcab
+join locationlookup l 
+on l.locationid= yellowcab.pulocationid
+and l.borough ='"Queens"'
+
+
+create materialized view bronx_view_yellow as
+select 
+yellowcab.vendorid,yellowcab.tpep_pickup_datetime,
+yellowcab.tpep_dropoff_datetime,yellowcab.ratecodeid,
+yellowcab.pulocationid,yellowcab.dolocationid,
+yellowcab.passenger_count,yellowcab.trip_distance,
+yellowcab.fare_amount,yellowcab.extra,
+yellowcab.mta_tax,yellowcab.tip_amount,
+yellowcab.tolls_amount,
+yellowcab.improvement_surcharge,
+yellowcab.total_amount,
+yellowcab.payment_type,
+yellowcab.congestion_surcharge,
+yellowcab.lpep_pickup_datetime_val,
+yellowcab.lpep_pickup_time_minutes,
+yellowcab.lpep_pickup_time_hour,
+yellowcab.lpep_dropoff_datetime_val,
+yellowcab.lpep_dropoff_minute,
+yellowcab.lpep_dropoff_hour
+
+from yellowcab as yellowcab
+join locationlookup l 
+on l.locationid= yellowcab.pulocationid
+and l.borough ='"Bronx"'
+
+
+create materialized view staten_view_yellow as
+select 
+yellowcab.vendorid,yellowcab.tpep_pickup_datetime,
+yellowcab.tpep_dropoff_datetime,yellowcab.ratecodeid,
+yellowcab.pulocationid,yellowcab.dolocationid,
+yellowcab.passenger_count,yellowcab.trip_distance,
+yellowcab.fare_amount,yellowcab.extra,
+yellowcab.mta_tax,yellowcab.tip_amount,
+yellowcab.tolls_amount,
+yellowcab.improvement_surcharge,
+yellowcab.total_amount,
+yellowcab.payment_type,
+yellowcab.congestion_surcharge,
+yellowcab.lpep_pickup_datetime_val,
+yellowcab.lpep_pickup_time_minutes,
+yellowcab.lpep_pickup_time_hour,
+yellowcab.lpep_dropoff_datetime_val,
+yellowcab.lpep_dropoff_minute,
+yellowcab.lpep_dropoff_hour
+
+from yellowcab as yellowcab
+join locationlookup l 
+on l.locationid= yellowcab.pulocationid
+and l.borough ='"Staten Island"'
+
+
+create materialized view ewr_view_yellow as
+select 
+yellowcab.vendorid,yellowcab.tpep_pickup_datetime,
+yellowcab.tpep_dropoff_datetime,yellowcab.ratecodeid,
+yellowcab.pulocationid,yellowcab.dolocationid,
+yellowcab.passenger_count,yellowcab.trip_distance,
+yellowcab.fare_amount,yellowcab.extra,
+yellowcab.mta_tax,yellowcab.tip_amount,
+yellowcab.tolls_amount,
+yellowcab.improvement_surcharge,
+yellowcab.total_amount,
+yellowcab.payment_type,
+yellowcab.congestion_surcharge,
+yellowcab.lpep_pickup_datetime_val,
+yellowcab.lpep_pickup_time_minutes,
+yellowcab.lpep_pickup_time_hour,
+yellowcab.lpep_dropoff_datetime_val,
+yellowcab.lpep_dropoff_minute,
+yellowcab.lpep_dropoff_hour
+
+from yellowcab as yellowcab
+join locationlookup l 
+on l.locationid= yellowcab.pulocationid
+and l.borough ='"EWR"'
+
+
+create materialized view brooklyn_view_yellow as
+select 
+yellowcab.vendorid,yellowcab.tpep_pickup_datetime,
+yellowcab.tpep_dropoff_datetime,yellowcab.ratecodeid,
+yellowcab.pulocationid,yellowcab.dolocationid,
+yellowcab.passenger_count,yellowcab.trip_distance,
+yellowcab.fare_amount,yellowcab.extra,
+yellowcab.mta_tax,yellowcab.tip_amount,
+yellowcab.tolls_amount,
+yellowcab.improvement_surcharge,
+yellowcab.total_amount,
+yellowcab.payment_type,
+yellowcab.congestion_surcharge,
+yellowcab.lpep_pickup_datetime_val,
+yellowcab.lpep_pickup_time_minutes,
+yellowcab.lpep_pickup_time_hour,
+yellowcab.lpep_dropoff_datetime_val,
+yellowcab.lpep_dropoff_minute,
+yellowcab.lpep_dropoff_hour
+
+from yellowcab as yellowcab
+join locationlookup l 
+on l.locationid= yellowcab.pulocationid
+and l.borough ='"Brooklyn"'
+
+create materialized view brooklyn_view_yellow as
+select 
+yellowcab.vendorid,yellowcab.tpep_pickup_datetime,
+yellowcab.tpep_dropoff_datetime,yellowcab.ratecodeid,
+yellowcab.pulocationid,yellowcab.dolocationid,
+yellowcab.passenger_count,yellowcab.trip_distance,
+yellowcab.fare_amount,yellowcab.extra,
+yellowcab.mta_tax,yellowcab.tip_amount,
+yellowcab.tolls_amount,
+yellowcab.improvement_surcharge,
+yellowcab.total_amount,
+yellowcab.payment_type,
+yellowcab.congestion_surcharge,
+yellowcab.lpep_pickup_datetime_val,
+yellowcab.lpep_pickup_time_minutes,
+yellowcab.lpep_pickup_time_hour,
+yellowcab.lpep_dropoff_datetime_val,
+yellowcab.lpep_dropoff_minute,
+yellowcab.lpep_dropoff_hour
+
+from yellowcab as yellowcab
+join locationlookup l 
+on l.locationid= yellowcab.pulocationid
+and l.borough ='"Manhattan"'
+
+create materialized view manhattan_view_yellow as
+select 
+yellowcab.vendorid,yellowcab.tpep_pickup_datetime,
+yellowcab.tpep_dropoff_datetime,yellowcab.ratecodeid,
+yellowcab.pulocationid,yellowcab.dolocationid,
+yellowcab.passenger_count,yellowcab.trip_distance,
+yellowcab.fare_amount,yellowcab.extra,
+yellowcab.mta_tax,yellowcab.tip_amount,
+yellowcab.tolls_amount,
+yellowcab.improvement_surcharge,
+yellowcab.total_amount,
+yellowcab.payment_type,
+yellowcab.congestion_surcharge,
+yellowcab.lpep_pickup_datetime_val,
+yellowcab.lpep_pickup_time_minutes,
+yellowcab.lpep_pickup_time_hour,
+yellowcab.lpep_dropoff_datetime_val,
+yellowcab.lpep_dropoff_minute,
+yellowcab.lpep_dropoff_hour
+
+from yellowcab as yellowcab
+join locationlookup l 
+on l.locationid= yellowcab.pulocationid
+and l.borough ='"Manhattan"'
+
+
+create materialized view unknown_view_yellow as
+select 
+yellowcab.vendorid,yellowcab.tpep_pickup_datetime,
+yellowcab.tpep_dropoff_datetime,yellowcab.ratecodeid,
+yellowcab.pulocationid,yellowcab.dolocationid,
+yellowcab.passenger_count,yellowcab.trip_distance,
+yellowcab.fare_amount,yellowcab.extra,
+yellowcab.mta_tax,yellowcab.tip_amount,
+yellowcab.tolls_amount,
+yellowcab.improvement_surcharge,
+yellowcab.total_amount,
+yellowcab.payment_type,
+yellowcab.congestion_surcharge,
+yellowcab.lpep_pickup_datetime_val,
+yellowcab.lpep_pickup_time_minutes,
+yellowcab.lpep_pickup_time_hour,
+yellowcab.lpep_dropoff_datetime_val,
+yellowcab.lpep_dropoff_minute,
+yellowcab.lpep_dropoff_hour
+
+from yellowcab as yellowcab
+join locationlookup l 
+on l.locationid= yellowcab.pulocationid
+and l.borough ='"Unknown"'
+
