@@ -12,7 +12,7 @@ select * from lvhiretaxi l ;
 select * from greencab g 
 
 
------------------------Extracting of date and time ------------------------------
+-----------------------Extracting of date and time for pickp------------------------------
 
 select extract(seconds from tpep_pickup_datetime::timestamp)  as ti from yellowcab y ;
 
@@ -38,3 +38,55 @@ set lpep_pickup_time_minutes=extract(minute from lpep_pickup_datetime::timestamp
 
 update greencab 
 set lpep_pickup_time_hour=extract(hour from lpep_pickup_datetime::timestamp)
+
+
+
+
+--------Extractinf Date time for pickp Date----------------------------------------
+
+
+
+alter table greencab 
+
+add column lpep_dropoff_datetime_val date;
+
+
+alter table greencab 
+
+add column lpep_dropoff_minute int;
+
+
+
+
+alter table greencab 
+
+add column lpep_dropoff_hour int;
+
+
+
+
+select * from greencab g ;
+
+
+update greencab 
+set lpep_dropoff_datetime_val=lpep_dropoff_datetime::date
+
+
+
+update greencab 
+set lpep_dropoff_minute=extract(minute from lpep_dropoff_datetime::timestamp)
+
+
+
+
+
+
+update greencab 
+set lpep_dropoff_hour=extract(hour from lpep_dropoff_datetime::timestamp)
+
+
+
+
+
+select * from greencab g ;
+
