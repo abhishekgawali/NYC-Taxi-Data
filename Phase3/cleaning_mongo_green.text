@@ -1,3 +1,4 @@
+//cleaning of green cab
 // Requires official MongoShell 3.6+
 db = db.getSiblingDB("NYC_Taxi");
 db.getCollection("green_cab").aggregate(
@@ -50,3 +51,55 @@ db.getCollection("green_cab").aggregate(
         "allowDiskUse" : false
     }
 );
+
+
+
+//cleaning of yellow cab
+// Requires official MongoShell 3.6+
+db = db.getSiblingDB("NYC_Taxi");
+db.getCollection("yellow_cab").aggregate(
+    [
+        {
+            "$addFields" : {
+                "pickup_date" : {
+                    "$toDate" : "$tpep_pickup_datetime"
+                },
+                "dropoff_date" : {
+                    "$toDate" : "$tpep_dropoff_datetime"
+                }
+            }
+        }, 
+        {
+            "$addFields" : {
+                "pickup_hour" : {
+                    "$hour" : "$pickup_date"
+                },
+                "dropoff_hour" : {
+                    "$hour" : "$dropoff_date"
+                }
+            }
+        }, 
+        {
+            "$addFields" : {
+                "pickup_minute" : {
+                    "$minute" : "$pickup_date"
+                },
+                "dropoff_minute" : {
+                    "$minute" : "$dropoff_date"
+                }
+            }
+        }, 
+        {
+            "$merge" : {
+                "into" : "yellow_cab",
+                "on" : "_id",
+                "whenMatched" : "replace",
+                "whenNotMatched" : "insert"
+            }
+        }
+    ], 
+    {
+        "allowDiskUse" : false
+    }
+);
+
