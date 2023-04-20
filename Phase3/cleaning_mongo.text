@@ -1,0 +1,52 @@
+// Requires official MongoShell 3.6+
+db = db.getSiblingDB("NYC_Taxi");
+db.getCollection("green_cab").aggregate(
+    [
+        {
+            "$addFields" : {
+                "pickup_date" : {
+                    "$toDate" : "$lpep_pickup_datetime"
+                },
+                "dropoff_date" : {
+                    "$toDate" : "$lpep_dropoff_datetime"
+                }
+            }
+        }, 
+        {
+            "$addFields" : {
+                "pickup_hour" : {
+                    "$hour" : "$pickup_date"
+                },
+                "dropoff_hour" : {
+                    "$hour" : "$dropoff_date"
+                }
+            }
+        }, 
+        {
+            "$addFields" : {
+                "pickup_minute" : {
+                    "$minute" : "$pickup_date"
+                },
+                "dropoff_minute" : {
+                    "$minute" : "$dropoff_date"
+                }
+            }
+        }, 
+        {
+            "$match" : {
+
+            }
+        }, 
+        {
+            "$merge" : {
+                "into" : "green_cab",
+                "on" : "_id",
+                "whenMatched" : "replace",
+                "whenNotMatched" : "insert"
+            }
+        }
+    ], 
+    {
+        "allowDiskUse" : false
+    }
+);
