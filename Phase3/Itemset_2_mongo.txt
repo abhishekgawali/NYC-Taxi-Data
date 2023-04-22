@@ -1,0 +1,100 @@
+# Requires pymongo 3.6.0+
+from pymongo import MongoClient
+
+client = MongoClient("mongodb://host:port/")
+database = client["NYC_Taxi"]
+collection = database["green_cab_itemset"]
+
+# Created with Studio 3T, the IDE for MongoDB - https://studio3t.com/
+
+pipeline = [
+    {
+        u"$addFields": {
+            u"pick_drop": {
+                u"$concat": [
+                    {
+                        u"$toString": u"$PULocationID"
+                    },
+                    {
+                        u"$toString": u"$DOLocationID"
+                    }
+                ]
+            }
+        }
+    }, 
+    {
+        u"$lookup": {
+            u"from": u"location_lookup",
+            u"localField": u"PULocationID",
+            u"foreignField": u"locationid",
+            u"as": u"LocationDetails_pick"
+        }
+    }, 
+    {
+        u"$lookup": {
+            u"from": u"location_lookup",
+            u"localField": u"DOLocationID",
+            u"foreignField": u"locationid",
+            u"as": u"LocationDetails_drop"
+        }
+    }, 
+    {
+        u"$addFields": {
+            u"Pickup_borough": u"$LocationDetails_pick.borough",
+            u"drop_borough": u"$LocationDetails_drop.borough"
+        }
+    }, 
+    {
+        u"$unwind": {
+            u"path": u"$Pickup_borough"
+        }
+    }, 
+    {
+        u"$unwind": {
+            u"path": u"$drop_borough"
+        }
+    }, 
+    {
+        u"$unset": [
+            u"LocationDetails_pick",
+            u"LocationDetails_drop",
+            u"a"
+        ]
+    }, 
+    {
+        u"$lookup": {
+            u"from": u"itemset_1",
+            u"localField": u"pick_drop",
+            u"foreignField": u"pick_drop",
+            u"as": u"a"
+        }
+    }, 
+    {
+        u"$match": {
+            u"a": {
+                u"$ne": []
+            }
+        }
+    }, 
+    {
+        u"$unset": [
+            u"a"
+        ]
+    }, 
+    {
+        u"$out": {
+            u"db": u"NYC_Taxi",
+            u"coll": u"Itemset_2"
+        }
+    }
+]
+
+cursor = collection.aggregate(
+    pipeline, 
+    allowDiskUse = False
+)
+try:
+    for doc in cursor:
+        print(doc)
+finally:
+    client.close()
