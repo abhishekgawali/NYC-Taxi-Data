@@ -98,3 +98,60 @@ try:
         print(doc)
 finally:
     client.close()
+    
+    
+    
+    
+    ///
+    # Requires pymongo 3.6.0+
+from pymongo import MongoClient
+
+client = MongoClient("mongodb://host:port/")
+database = client["NYC_Taxi"]
+collection = database["Itemset_2"]
+
+# Created with Studio 3T, the IDE for MongoDB - https://studio3t.com/
+
+pipeline = [
+    {
+        u"$group": {
+            u"_id": {
+                u"a": u"$Pickup_borough",
+                u"b": u"$drop_borough"
+            },
+            u"count": {
+                u"$sum": 1.0
+            }
+        }
+    }, 
+    {
+        u"$match": {
+            u"count": {
+                u"$gte": 10.0
+            }
+        }
+    }, 
+    {
+        u"$addFields": {
+            u"pickup": u"$_id.a",
+            u"drop": u"$_id.b"
+        }
+    }, 
+    {
+        u"$out": {
+            u"db": u"NYC_Taxi",
+            u"coll": u"run2_Itemset"
+        }
+    }
+]
+
+cursor = collection.aggregate(
+    pipeline, 
+    allowDiskUse = False
+)
+try:
+    for doc in cursor:
+        print(doc)
+finally:
+    client.close()
+
