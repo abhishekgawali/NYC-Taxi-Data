@@ -1,0 +1,17 @@
+"pickuplocationborough","dropofflocationborough","count"
+"""Brooklyn""","""Brooklyn""",36
+"""Brooklyn""","""Manhattan""",14
+"""Manhattan""","""Bronx""",69
+"""Manhattan""","""Brooklyn""",561
+"""Manhattan""","""EWR""",38
+"""Manhattan""","""Manhattan""",3022
+"""Manhattan""","""Queens""",384
+"""Manhattan""","""Unknown""",68
+"""Queens""","""Bronx""",69
+"""Queens""","""Brooklyn""",128
+"""Queens""","""Manhattan""",214
+"""Queens""","""Queens""",216
+"""Queens""","""Unknown""",11
+"""Unknown""","""Brooklyn""",20
+"""Unknown""","""Manhattan""",59
+"""Unknown""","""Queens""",20
