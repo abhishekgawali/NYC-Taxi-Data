@@ -1,0 +1,692 @@
+select * from greencab g ;
+
+
+select * from yellowcab y 
+
+
+select * from lvhiretaxi l ;
+
+
+
+
+select * from greencab g 
+
+
+-----------------------Extracting of date and time for pickp------------------------------
+
+select extract(seconds from tpep_pickup_datetime::timestamp)  as ti from yellowcab y ;
+
+
+alter table greencab 
+add column lpep_pickup_time_minutes int
+
+
+
+
+alter table greencab 
+add column lpep_pickup_time_hour int
+
+
+
+
+
+update greencab 
+set lpep_pickup_time_minutes=extract(minute from lpep_pickup_datetime::timestamp)
+
+
+
+
+update greencab 
+set lpep_pickup_time_hour=extract(hour from lpep_pickup_datetime::timestamp)
+
+
+
+
+--------Extractinf Date time for pickp Date----------------------------------------
+
+
+
+alter table greencab 
+
+add column lpep_dropoff_datetime_val date;
+
+
+alter table greencab 
+
+add column lpep_dropoff_minute int;
+
+
+
+
+alter table greencab 
+
+add column lpep_dropoff_hour int;
+
+
+
+
+select * from greencab g ;
+
+
+update greencab 
+set lpep_dropoff_datetime_val=lpep_dropoff_datetime::date
+
+
+
+update greencab 
+set lpep_dropoff_minute=extract(minute from lpep_dropoff_datetime::timestamp)
+
+
+
+
+
+
+update greencab 
+set lpep_dropoff_hour=extract(hour from lpep_dropoff_datetime::timestamp)
+
+
+
+
+
+select * from greencab g ;
+
+
+
+-------------------------------------------------Integration---------------------------------------------------------------------
+
+create materialized view queens_view as
+select 
+greencab.vendorid,greencab.lpep_pickup_datetime,
+greencab.lpep_dropoff_datetime,greencab.ratecodeid,
+greencab.pulocationid,greencab.dolocationid,
+greencab.passenger_count,greencab.trip_distance,
+greencab.fare_amount,greencab.extra,
+greencab.mta_tax,greencab.tip_amount,
+greencab.tolls_amount,
+greencab.ehail_fee,
+greencab.improvement_surcharge,
+greencab.total_amount,
+greencab.payment_type,
+greencab.trip_type,
+greencab.congestion_surcharge,
+greencab.lpep_pickup_date_val,
+greencab.lpep_pickup_time_minutes,
+greencab.lpep_pickup_time_hour,
+greencab.lpep_dropoff_datetime_val,
+greencab.lpep_dropoff_minute,
+greencab.lpep_dropoff_hour
+
+from greencab as greencab
+join locationlookup l 
+on l.locationid= greencab.pulocationid
+and l.borough ='"Queens"'
+
+
+
+
+
+
+
+
+create materialized view bronx_view as
+
+select 
+greencab.vendorid,greencab.lpep_pickup_datetime,
+greencab.lpep_dropoff_datetime,greencab.ratecodeid,
+greencab.pulocationid,greencab.dolocationid,
+greencab.passenger_count,greencab.trip_distance,
+greencab.fare_amount,greencab.extra,
+greencab.mta_tax,greencab.tip_amount,
+greencab.tolls_amount,
+greencab.ehail_fee,
+greencab.improvement_surcharge,
+greencab.total_amount,
+greencab.payment_type,
+greencab.trip_type,
+greencab.congestion_surcharge,
+greencab.lpep_pickup_date_val,
+greencab.lpep_pickup_time_minutes,
+greencab.lpep_pickup_time_hour,
+greencab.lpep_dropoff_datetime_val,
+greencab.lpep_dropoff_minute,
+greencab.lpep_dropoff_hour
+
+from greencab as greencab
+join locationlookup l 
+on l.locationid= greencab.pulocationid
+and l.borough ='"Bronx"'
+
+
+
+
+
+
+
+create materialized view brooklyn_view as
+select 
+greencab.vendorid,greencab.lpep_pickup_datetime,
+greencab.lpep_dropoff_datetime,greencab.ratecodeid,
+greencab.pulocationid,greencab.dolocationid,
+greencab.passenger_count,greencab.trip_distance,
+greencab.fare_amount,greencab.extra,
+greencab.mta_tax,greencab.tip_amount,
+greencab.tolls_amount,
+greencab.ehail_fee,
+greencab.improvement_surcharge,
+greencab.total_amount,
+greencab.payment_type,
+greencab.trip_type,
+greencab.congestion_surcharge,
+greencab.lpep_pickup_date_val,
+greencab.lpep_pickup_time_minutes,
+greencab.lpep_pickup_time_hour,
+greencab.lpep_dropoff_datetime_val,
+greencab.lpep_dropoff_minute,
+greencab.lpep_dropoff_hour
+
+from greencab as greencab
+join locationlookup l 
+on l.locationid= greencab.pulocationid
+and l.borough ='"Brooklyn"'
+
+
+
+
+create materialized view ewr_view as
+select 
+greencab.vendorid,greencab.lpep_pickup_datetime,
+greencab.lpep_dropoff_datetime,greencab.ratecodeid,
+greencab.pulocationid,greencab.dolocationid,
+greencab.passenger_count,greencab.trip_distance,
+greencab.fare_amount,greencab.extra,
+greencab.mta_tax,greencab.tip_amount,
+greencab.tolls_amount,
+greencab.ehail_fee,
+greencab.improvement_surcharge,
+greencab.total_amount,
+greencab.payment_type,
+greencab.trip_type,
+greencab.congestion_surcharge,
+greencab.lpep_pickup_date_val,
+greencab.lpep_pickup_time_minutes,
+greencab.lpep_pickup_time_hour,
+greencab.lpep_dropoff_datetime_val,
+greencab.lpep_dropoff_minute,
+greencab.lpep_dropoff_hour
+
+from greencab as greencab
+join locationlookup l 
+on l.locationid= greencab.pulocationid
+and l.borough ='"EWR"'
+
+
+
+
+
+
+create materialized view staten_view as
+select 
+greencab.vendorid,greencab.lpep_pickup_datetime,
+greencab.lpep_dropoff_datetime,greencab.ratecodeid,
+greencab.pulocationid,greencab.dolocationid,
+greencab.passenger_count,greencab.trip_distance,
+greencab.fare_amount,greencab.extra,
+greencab.mta_tax,greencab.tip_amount,
+greencab.tolls_amount,
+greencab.ehail_fee,
+greencab.improvement_surcharge,
+greencab.total_amount,
+greencab.payment_type,
+greencab.trip_type,
+greencab.congestion_surcharge,
+greencab.lpep_pickup_date_val,
+greencab.lpep_pickup_time_minutes,
+greencab.lpep_pickup_time_hour,
+greencab.lpep_dropoff_datetime_val,
+greencab.lpep_dropoff_minute,
+greencab.lpep_dropoff_hour
+
+from greencab as greencab
+join locationlookup l 
+on l.locationid= greencab.pulocationid
+and l.borough ='"Staten Island"'
+
+
+
+
+
+
+
+create materialized view unknown_view as
+select 
+greencab.vendorid,greencab.lpep_pickup_datetime,
+greencab.lpep_dropoff_datetime,greencab.ratecodeid,
+greencab.pulocationid,greencab.dolocationid,
+greencab.passenger_count,greencab.trip_distance,
+greencab.fare_amount,greencab.extra,
+greencab.mta_tax,greencab.tip_amount,
+greencab.tolls_amount,
+greencab.ehail_fee,
+greencab.improvement_surcharge,
+greencab.total_amount,
+greencab.payment_type,
+greencab.trip_type,
+greencab.congestion_surcharge,
+greencab.lpep_pickup_date_val,
+greencab.lpep_pickup_time_minutes,
+greencab.lpep_pickup_time_hour,
+greencab.lpep_dropoff_datetime_val,
+greencab.lpep_dropoff_minute,
+greencab.lpep_dropoff_hour
+
+from greencab as greencab
+join locationlookup l 
+on l.locationid= greencab.pulocationid
+and l.borough ='"Unknown"'
+
+
+
+
+
+
+create materialized view  manhattan_view as
+select 
+greencab.vendorid,greencab.lpep_pickup_datetime,
+greencab.lpep_dropoff_datetime,greencab.ratecodeid,
+greencab.pulocationid,greencab.dolocationid,
+greencab.passenger_count,greencab.trip_distance,
+greencab.fare_amount,greencab.extra,
+greencab.mta_tax,greencab.tip_amount,
+greencab.tolls_amount,
+greencab.ehail_fee,
+greencab.improvement_surcharge,
+greencab.total_amount,
+greencab.payment_type,
+greencab.trip_type,
+greencab.congestion_surcharge,
+greencab.lpep_pickup_date_val,
+greencab.lpep_pickup_time_minutes,
+greencab.lpep_pickup_time_hour,
+greencab.lpep_dropoff_datetime_val,
+greencab.lpep_dropoff_minute,
+greencab.lpep_dropoff_hour
+
+from greencab as greencab
+join locationlookup l 
+on l.locationid= greencab.pulocationid
+and l.borough ='"Manhattan"'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---------------------yellowCab------------------------------------------------
+
+
+alter table yellowcab 
+add column lpep_pickup_time_minutes int
+
+
+
+
+alter table yellowcab 
+add column lpep_pickup_time_hour int
+
+
+
+select * from yellowcab y limit 10
+
+update yellowcab 
+set lpep_pickup_time_minutes=extract(minute from tpep_pickup_datetime::timestamp)
+
+
+
+
+update yellowcab 
+set lpep_pickup_time_hour=extract(hour from tpep_pickup_datetime::timestamp)
+
+
+
+
+--------Extractinf Date time for pickp Date----------------------------------------
+
+
+
+alter table yellowcab 
+
+add column lpep_dropoff_datetime_val date;
+
+
+
+alter table yellowcab 
+add column lpep_pickup_datetime_val date;
+
+add column tpep_pickup_datetime_val date;
+
+
+
+
+
+alter table yellowcab 
+
+add column lpep_dropoff_minute int;
+
+
+
+
+alter table yellowcab 
+
+add column lpep_dropoff_hour int;
+
+
+
+
+select * from yellowcab g  ;
+
+
+update yellowcab 
+set lpep_dropoff_datetime_val=tpep_dropoff_datetime::date
+
+
+update yellowcab 
+set lpep_pickup_datetime_val=tpep_pickup_datetime::date
+
+
+
+update yellowcab 
+set lpep_dropoff_minute=extract(minute from tpep_dropoff_datetime::timestamp)
+
+
+
+
+
+
+update yellowcab 
+set lpep_dropoff_hour=extract(hour from tpep_dropoff_datetime::timestamp)
+
+--------------------------integration of yellowcab-------------------------------------------------------------------------------
+
+
+create materialized view queens_view_yellow as
+select 
+yellowcab.vendorid,yellowcab.tpep_pickup_datetime,
+yellowcab.tpep_dropoff_datetime,yellowcab.ratecodeid,
+yellowcab.pulocationid,yellowcab.dolocationid,
+yellowcab.passenger_count,yellowcab.trip_distance,
+yellowcab.fare_amount,yellowcab.extra,
+yellowcab.mta_tax,yellowcab.tip_amount,
+yellowcab.tolls_amount,
+yellowcab.improvement_surcharge,
+yellowcab.total_amount,
+yellowcab.payment_type,
+yellowcab.congestion_surcharge,
+yellowcab.lpep_pickup_datetime_val,
+yellowcab.lpep_pickup_time_minutes,
+yellowcab.lpep_pickup_time_hour,
+yellowcab.lpep_dropoff_datetime_val,
+yellowcab.lpep_dropoff_minute,
+yellowcab.lpep_dropoff_hour
+
+from yellowcab as yellowcab
+join locationlookup l 
+on l.locationid= yellowcab.pulocationid
+and l.borough ='"Queens"'
+
+
+create materialized view bronx_view_yellow as
+select 
+yellowcab.vendorid,yellowcab.tpep_pickup_datetime,
+yellowcab.tpep_dropoff_datetime,yellowcab.ratecodeid,
+yellowcab.pulocationid,yellowcab.dolocationid,
+yellowcab.passenger_count,yellowcab.trip_distance,
+yellowcab.fare_amount,yellowcab.extra,
+yellowcab.mta_tax,yellowcab.tip_amount,
+yellowcab.tolls_amount,
+yellowcab.improvement_surcharge,
+yellowcab.total_amount,
+yellowcab.payment_type,
+yellowcab.congestion_surcharge,
+yellowcab.lpep_pickup_datetime_val,
+yellowcab.lpep_pickup_time_minutes,
+yellowcab.lpep_pickup_time_hour,
+yellowcab.lpep_dropoff_datetime_val,
+yellowcab.lpep_dropoff_minute,
+yellowcab.lpep_dropoff_hour
+
+from yellowcab as yellowcab
+join locationlookup l 
+on l.locationid= yellowcab.pulocationid
+and l.borough ='"Bronx"'
+
+
+create materialized view staten_view_yellow as
+select 
+yellowcab.vendorid,yellowcab.tpep_pickup_datetime,
+yellowcab.tpep_dropoff_datetime,yellowcab.ratecodeid,
+yellowcab.pulocationid,yellowcab.dolocationid,
+yellowcab.passenger_count,yellowcab.trip_distance,
+yellowcab.fare_amount,yellowcab.extra,
+yellowcab.mta_tax,yellowcab.tip_amount,
+yellowcab.tolls_amount,
+yellowcab.improvement_surcharge,
+yellowcab.total_amount,
+yellowcab.payment_type,
+yellowcab.congestion_surcharge,
+yellowcab.lpep_pickup_datetime_val,
+yellowcab.lpep_pickup_time_minutes,
+yellowcab.lpep_pickup_time_hour,
+yellowcab.lpep_dropoff_datetime_val,
+yellowcab.lpep_dropoff_minute,
+yellowcab.lpep_dropoff_hour
+
+from yellowcab as yellowcab
+join locationlookup l 
+on l.locationid= yellowcab.pulocationid
+and l.borough ='"Staten Island"'
+
+
+create materialized view ewr_view_yellow as
+select 
+yellowcab.vendorid,yellowcab.tpep_pickup_datetime,
+yellowcab.tpep_dropoff_datetime,yellowcab.ratecodeid,
+yellowcab.pulocationid,yellowcab.dolocationid,
+yellowcab.passenger_count,yellowcab.trip_distance,
+yellowcab.fare_amount,yellowcab.extra,
+yellowcab.mta_tax,yellowcab.tip_amount,
+yellowcab.tolls_amount,
+yellowcab.improvement_surcharge,
+yellowcab.total_amount,
+yellowcab.payment_type,
+yellowcab.congestion_surcharge,
+yellowcab.lpep_pickup_datetime_val,
+yellowcab.lpep_pickup_time_minutes,
+yellowcab.lpep_pickup_time_hour,
+yellowcab.lpep_dropoff_datetime_val,
+yellowcab.lpep_dropoff_minute,
+yellowcab.lpep_dropoff_hour
+
+from yellowcab as yellowcab
+join locationlookup l 
+on l.locationid= yellowcab.pulocationid
+and l.borough ='"EWR"'
+
+
+create materialized view brooklyn_view_yellow as
+select 
+yellowcab.vendorid,yellowcab.tpep_pickup_datetime,
+yellowcab.tpep_dropoff_datetime,yellowcab.ratecodeid,
+yellowcab.pulocationid,yellowcab.dolocationid,
+yellowcab.passenger_count,yellowcab.trip_distance,
+yellowcab.fare_amount,yellowcab.extra,
+yellowcab.mta_tax,yellowcab.tip_amount,
+yellowcab.tolls_amount,
+yellowcab.improvement_surcharge,
+yellowcab.total_amount,
+yellowcab.payment_type,
+yellowcab.congestion_surcharge,
+yellowcab.lpep_pickup_datetime_val,
+yellowcab.lpep_pickup_time_minutes,
+yellowcab.lpep_pickup_time_hour,
+yellowcab.lpep_dropoff_datetime_val,
+yellowcab.lpep_dropoff_minute,
+yellowcab.lpep_dropoff_hour
+
+from yellowcab as yellowcab
+join locationlookup l 
+on l.locationid= yellowcab.pulocationid
+and l.borough ='"Brooklyn"'
+
+create materialized view brooklyn_view_yellow as
+select 
+yellowcab.vendorid,yellowcab.tpep_pickup_datetime,
+yellowcab.tpep_dropoff_datetime,yellowcab.ratecodeid,
+yellowcab.pulocationid,yellowcab.dolocationid,
+yellowcab.passenger_count,yellowcab.trip_distance,
+yellowcab.fare_amount,yellowcab.extra,
+yellowcab.mta_tax,yellowcab.tip_amount,
+yellowcab.tolls_amount,
+yellowcab.improvement_surcharge,
+yellowcab.total_amount,
+yellowcab.payment_type,
+yellowcab.congestion_surcharge,
+yellowcab.lpep_pickup_datetime_val,
+yellowcab.lpep_pickup_time_minutes,
+yellowcab.lpep_pickup_time_hour,
+yellowcab.lpep_dropoff_datetime_val,
+yellowcab.lpep_dropoff_minute,
+yellowcab.lpep_dropoff_hour
+
+from yellowcab as yellowcab
+join locationlookup l 
+on l.locationid= yellowcab.pulocationid
+and l.borough ='"Manhattan"'
+
+create materialized view manhattan_view_yellow as
+select 
+yellowcab.vendorid,yellowcab.tpep_pickup_datetime,
+yellowcab.tpep_dropoff_datetime,yellowcab.ratecodeid,
+yellowcab.pulocationid,yellowcab.dolocationid,
+yellowcab.passenger_count,yellowcab.trip_distance,
+yellowcab.fare_amount,yellowcab.extra,
+yellowcab.mta_tax,yellowcab.tip_amount,
+yellowcab.tolls_amount,
+yellowcab.improvement_surcharge,
+yellowcab.total_amount,
+yellowcab.payment_type,
+yellowcab.congestion_surcharge,
+yellowcab.lpep_pickup_datetime_val,
+yellowcab.lpep_pickup_time_minutes,
+yellowcab.lpep_pickup_time_hour,
+yellowcab.lpep_dropoff_datetime_val,
+yellowcab.lpep_dropoff_minute,
+yellowcab.lpep_dropoff_hour
+
+from yellowcab as yellowcab
+join locationlookup l 
+on l.locationid= yellowcab.pulocationid
+and l.borough ='"Manhattan"'
+
+
+create materialized view unknown_view_yellow as
+select 
+yellowcab.vendorid,yellowcab.tpep_pickup_datetime,
+yellowcab.tpep_dropoff_datetime,yellowcab.ratecodeid,
+yellowcab.pulocationid,yellowcab.dolocationid,
+yellowcab.passenger_count,yellowcab.trip_distance,
+yellowcab.fare_amount,yellowcab.extra,
+yellowcab.mta_tax,yellowcab.tip_amount,
+yellowcab.tolls_amount,
+yellowcab.improvement_surcharge,
+yellowcab.total_amount,
+yellowcab.payment_type,
+yellowcab.congestion_surcharge,
+yellowcab.lpep_pickup_datetime_val,
+yellowcab.lpep_pickup_time_minutes,
+yellowcab.lpep_pickup_time_hour,
+yellowcab.lpep_dropoff_datetime_val,
+yellowcab.lpep_dropoff_minute,
+yellowcab.lpep_dropoff_hour
+
+from yellowcab as yellowcab
+join locationlookup l 
+on l.locationid= yellowcab.pulocationid
+and l.borough ='"Unknown"'
+
+
+
+
+
+------------------------XXXXXXXXXXXXXXXXXXXXxx-----------------------------------------
+
+
+select y.plocationid,y.dlocationid,y.pickloca as pickuplocationborough,l2.borough as dropofflocationborough,y.cnt from(
+(select x.location_p_id as plocationid,
+x.location_d_id as dlocationid,
+l.borough as pickloca,
+x.cnt as cnt from
+(select 
+pulocationid as location_p_id,
+dolocationid as location_d_id,
+count(1) as cnt 
+from yellowcab y 
+group by 1,2
+having count(1)>20 
+) x
+join locationlookup l 
+on l.locationid =x.location_p_id)
+) y
+join locationlookup l2 
+on l2.locationid =y.dlocationid
+
+
+
+
+
+create or replace view A1 as
+select y.plocationid,y.dlocationid,y.pickloca as pickuplocationborough,l2.borough as dropofflocationborough,y.cnt from(
+(select x.location_p_id as plocationid,
+x.location_d_id as dlocationid,
+l.borough as pickloca,
+x.cnt as cnt from
+(select 
+pulocationid as location_p_id,
+dolocationid as location_d_id,
+count(1) as cnt 
+from yellowcab y 
+group by 1,2
+having count(1)>10
+) x
+join locationlookup l 
+on l.locationid =x.location_p_id)
+) y
+join locationlookup l2 
+on l2.locationid =y.dlocationid
+
+-------------------------------------------
+
+
+
+
+
+
+select count(1) from A1;
+
+
+
+create or replace view A2 as
+select  pickuplocationborough,dropofflocationborough,count(1) from  A1
+group by 1,2
+having count(1) >10;
+
+
+
