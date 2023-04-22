@@ -648,3 +648,45 @@ on l.locationid =x.location_p_id)
 join locationlookup l2 
 on l2.locationid =y.dlocationid
 
+
+
+
+
+create or replace view A1 as
+select y.plocationid,y.dlocationid,y.pickloca as pickuplocationborough,l2.borough as dropofflocationborough,y.cnt from(
+(select x.location_p_id as plocationid,
+x.location_d_id as dlocationid,
+l.borough as pickloca,
+x.cnt as cnt from
+(select 
+pulocationid as location_p_id,
+dolocationid as location_d_id,
+count(1) as cnt 
+from yellowcab y 
+group by 1,2
+having count(1)>10
+) x
+join locationlookup l 
+on l.locationid =x.location_p_id)
+) y
+join locationlookup l2 
+on l2.locationid =y.dlocationid
+
+-------------------------------------------
+
+
+
+
+
+
+select count(1) from A1;
+
+
+
+create or replace view A2 as
+select  pickuplocationborough,dropofflocationborough,count(1) from  A1
+group by 1,2
+having count(1) >10;
+
+
+
